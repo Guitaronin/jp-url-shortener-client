@@ -17,12 +17,19 @@ const UrlForm = ({ baseURL }) => {
             const response = await url.post('/short_urls.json', {
                 full_url: term
             }).catch(err => {
-                setError(err.response.data.errors[0]);
-                setRenderError(true);
+
+                if(err.response){
+                    setError(err.response.data.errors[0]);
+                    setRenderError(true);
+                }else{
+                    setError('Could not get response from server');
+                    setRenderError(true);
+                }
+
                 setRenderNew(false);
             });
 
-            if(response){
+            if (response) {
                 setNewUrl(response.data.short_code);
                 setRenderNew(true);
                 setRenderError(false);
