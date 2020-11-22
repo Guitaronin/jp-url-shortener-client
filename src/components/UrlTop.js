@@ -1,8 +1,13 @@
 import React from 'react';
 import useRefresh from '../hooks/useRefresh';
+import Error from "./Error";
 
 const UrlTop = ({ baseURL }) => {
-    const[results, refresh] = useRefresh([]);
+    const[results, errorMessage, refresh] = useRefresh([]);
+
+    if(errorMessage){
+        return <Error renderError={true} error={errorMessage}/>;
+    }
 
     const renderedResults = results.map((result) => {
         return (
